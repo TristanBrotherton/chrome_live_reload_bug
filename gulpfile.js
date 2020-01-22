@@ -1,8 +1,6 @@
 var gulp = require('gulp');
-var browserSync = require('browser-sync');
-var filter = require('gulp-filter');
-var sass = require('gulp-ruby-sass');
-var sourcemaps = require('gulp-sourcemaps');
+var browserSync = require('browser-sync').create();
+var sass = require('gulp-sass');
 var reload = browserSync.reload;
 
 var src = {
@@ -11,27 +9,9 @@ var src = {
     html: 'app/*.html'
 };
 
-/**
- * Kick off the sass stream with source maps + error handling
- */
-function sassStream() {
-    return sass('app/scss', { sourcemap: true })
-        .on('error', function(err) {
-            console.error('Error!', err.message);
-        })
-        .pipe(
-            sourcemaps.write('./', {
-                includeContent: false,
-                sourceRoot: '/app/scss'
-            })
-        );
-}
-
-/**
- * Start the Browsersync Static Server + Watch files
- */
+// Static Server + watching scss/html files
 gulp.task('serve', ['sass'], function() {
-    browserSync({
+    browserSync.init({
         server: './app'
     });
 
@@ -39,14 +19,13 @@ gulp.task('serve', ['sass'], function() {
     gulp.watch(src.html).on('change', reload);
 });
 
-/**
- * Compile sass, filter the results, inject CSS into all browsers
- */
+// Compile sass into CSS
 gulp.task('sass', function() {
-    return sassStream().pipe(gulp.dest(src.css)).pipe(filter('**/*.css')).pipe(reload({ stream: true }));
+    return gulp
+        .src(src.scss)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest(src.css))
+        .pipe(reload({ stream: true }));
 });
 
-/**
- * Default task
- */
 gulp.task('default', ['serve']);
