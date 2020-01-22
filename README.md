@@ -1,7 +1,9 @@
 # Demonstration of chrome livereloading bug.
 POC for a bug in chromes sourcemaps when using livereload.
+
 Some source forked from: https://github.com/Browsersync/recipes/tree/master/recipes/server
-Bug filed at: https://bugs.chromium.org/p/chromium/issues/detail?id=1044383#c2
+
+Bug filed at: https://bugs.chromium.org/p/chromium/issues/detail?id=1044383
 
 This example uses SASS instead of LESS as its better supported and easier to make 
 a demonstration. 
