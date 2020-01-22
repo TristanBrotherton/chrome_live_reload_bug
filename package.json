@@ -1,13 +1,16 @@
 {
-  "name": "bs-recipes-server",
+  "name": "gulp.sass",
   "version": "1.0.0",
-  "description": "Server example",
-  "main": "app.js",
+  "description": "Gulp & SASS",
+  "main": "gulpfile.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "gulp"
   },
-  "license": "MIT",
-  "dependencies": {
-    "browser-sync": "^2.1.6"
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.2.0",
+    "gulp": "^3.8.11",
+    "gulp-sass": "^2.2.0"
   }
 }
