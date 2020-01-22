@@ -20,20 +20,15 @@ gulp.task('serve', ['sass'], function() {
     gulp.watch(src.html).on('change', reload);
 });
 
-// Compile sass into CSS
-// gulp.task('sass', function() {
-//     return gulp
-//         .src(src.scss)
-//         .pipe(sass().on('error', sass.logError))
-//         .pipe(gulp.dest(src.css))
-//         .pipe(reload({ stream: true }));
-// });
-gulp.task('sass', function () {
- return gulp.src('./sass/**/*.scss')
-  .pipe(sourcemaps.init())
-  .pipe(sass().on('error', sass.logError))
-  .pipe(sourcemaps.write())
-  .pipe(gulp.dest('./css'));
+//Compile sass into CSS
+gulp.task('sass', function() {
+    return gulp
+        .src(src.scss)
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(src.css))
+        .pipe(reload({ stream: true }));
 });
 
 gulp.task('default', ['serve']);
