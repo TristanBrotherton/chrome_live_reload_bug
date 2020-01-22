@@ -37,8 +37,8 @@ $ npm start
 
 Note the correct source mapping 
 
-**Step 2**: Edit / touch the file to create a live reload.
-`app/scss/main.css` 
+**Step 2**: Edit / touch the SASS file to create a live reload.
+`app/scss/main.scss` 
 
 **Step 2**: Note correct sourcemapping has been lost:
 ![Lost Sourcemapping](image-2.png)
