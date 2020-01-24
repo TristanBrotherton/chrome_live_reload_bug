@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Chrome sourcemap bug POC</title>
+    <link id="styleTag" rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        /**
+       * Forces a reload of all stylesheets by appending a unique query string
+       * to each stylesheet URL.
+       */
+      toggle = true;
+      function toggleCSS() {
+          $('link[rel=stylesheet]').remove();
+          if (toggle) {
+            addCss("main2.css");
+            toggle = false;
+          } else {
+            addCss("main.css");
+            toggle = true;
+          }
+          return false;
+      }
+      function addCss(fileName) {
+        var queryString = '?reload=' + new Date().getTime();
+         var link = $("<link />",{
+           rel: "stylesheet",
+           type: "text/css",
+           href: fileName + queryString
+         })
+         $('head').append(link);
+      }
+    </script>
+</head>
+<body>
+    <h1>Instructions</h1>
+    <ol>
+      <li>Open chrome developer tools</li>
+      <li>Click on body tag </li>
+      <li>Note the correct source mapping that states "main.scss:12"</li>
+      <li><a onClick='toggleCSS()' href='#'>Click here</a> to similate a livereload of the
+        SAME CSS in the same manner LiveReload would perform.</li>
+      <li>Note in the developer tools that the sourcemapping is lost (it is the
+        same CSS file and sourcemap)</li>
+      <li>Refresh developer tools to see the correct source map (Option + R)</li>
+    </ol>
+</body>
+</html>
